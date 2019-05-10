@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search by name
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+
+  <a href="{% url 'minutes_search:index' %}" class="searchLink">Back to search</a>
+
+  <h2 class="title">Results: {{ name_query }}</h2>
+
+  {% if witness_for_list and witness_against_list %}
+
+  <h3 class="subhead">Organizations represented in support of bills</h3>
+
+  <ul>
+    {% for org in orgs_for %}
+    <li>
+      {{ org.witness_for_org }}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h3 class="subhead">Organizations represented in opposition of bills</h3>
+
+  <ul>
+    {% for org in orgs_against %}
+    <li>
+      {{ org.witness_against_org }}
+    </li>
+    {% endfor %}
+  </ul>
+
+
+  <h3 class="subhead">Bills supported</h3>
+
+    <ul>
+      {% for witness in witness_for_list %}
+      {% ifchanged %}
+      <li>
+        <a href="{% url 'minutes_search:bill_detail' witness.year witness.bill_no %}" class="detail">{{ witness.bill_no }}, {{ witness.year }}</a>
+      </li>
+      {% endifchanged %}
+      {% endfor %}
+    </ul>
+
+  <h3 class="subhead">Bills opposed</h3>
+
+    <ul>
+      {% for witness in witness_against_list %}
+      <li>
+        <a href="{% url 'minutes_search:bill_detail' witness.year witness.bill_no %}" class="detail">{% ifchanged %}{{ witness.bill_no }}, {{ witness.year }}{% endifchanged %}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+
+  <p class="error">
+    Name does not exist in the database. Please re-enter your search parameters.
+  </p>
+
+  {% endif %}
+
+
+</div>
+
+{% endblock %}

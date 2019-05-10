@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search by lawmaker
+{% endblock %}
+
+{% block content %}
+
+{% load mathfilters %}
+
+<div class="wrapper">
+
+  <a href="{% url 'minutes_search:index' %}" class="searchLink">Back to search</a>
+
+  <h2 class="title">Results for senator: {{ lawmaker_query }}</h2>
+
+  {% if witness_for_list and witness_against_list %}
+
+  <div class="summaryContainer">
+    <h4 class="summaryText">
+      <span class="boldSummary">{{ lawmaker_query|title }}</span> has received support from
+      {% if orgs_for|length == 1 %}
+      <span class="boldSummary">{{ orgs_for|length }}</span> organization since 2013.
+      {% else %}
+      <span class="boldSummary">{{ orgs_for|length }}</span> organizations since 2013.
+      {% endif %}
+      <span class="boldSummary">{{ lawmaker_query|title }}</span> has also received opposition from
+      {% if orgs_against|length == 1 %}
+      <span class="boldSummary">{{ orgs_against|length }}</span> organization since 2013.
+      {% else %}
+      <span class="boldSummary">{{ orgs_against|length }}</span> organizations since 2013.
+      {% endif %}
+      {% if bills_passed_for == 1 %}
+      <span class="boldSummary">{{ bills_passed_for }}</span> bill has passed and
+      {% else %}
+      <span class="boldSummary">{{ bills_passed_for }}</span> of the bills have passed and
+      {% endif %}
+      {% if total_bills|sub:bills_passed_for == 1 %}
+      <span class="boldSummary">{{ total_bills|sub:bills_passed_for }}</span> has failed.
+      {% else %}
+      <span class="boldSummary">{{ total_bills|sub:bills_passed_for }}</span> have failed.
+      {% endif %}
+    </h4>
+  </div>
+
+  <h3 class="subheadTable">Organizations testified for</h3>
+
+  <table class="responsive-table table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Bill Number</th>
+        <th>Bill Sponsor</th>
+        <th>Party</th>
+        <th>Committee</th>
+        <th>Witness Organization</th>
+        <th>Passed?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for witness in witness_for_list %}
+      <tr>
+        <td>
+          {{ witness.year }}
+        </td>
+        <td>
+          <a href="{% url 'minutes_search:bill_detail' witness.year witness.bill_no %}" class="detail">{{ witness.bill_no }}</a>
+        </td>
+        <td>
+          {{ witness.bill_sponsor }}
+        </td>
+        <td>
+          {{ witness.party }}
+        </td>
+        <td>
+          {{ witness.committee }}
+        </td>
+        <td>
+          {{ witness.witness_for_org }}
+        </td>
+        <td>
+          {{ witness.law }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3 class="subheadTable">Organizations testified against</h3>
+
+  <table class="responsive-table table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Bill Number</th>
+        <th>Bill Sponsor</th>
+        <th>Party</th>
+        <th>Committee</th>
+        <th>Witness Organization</th>
+        <th>Passed?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for witness in witness_against_list %}
+      <tr>
+        <td>
+          {{ witness.year }}
+        </td>
+        <td>
+          <a href="{% url 'minutes_search:bill_detail' witness.year witness.bill_no %}" class="detail">{{ witness.bill_no }}</a>
+        </td>
+        <td>
+          {{ witness.bill_sponsor }}
+        </td>
+        <td>
+          {{ witness.party }}
+        </td>
+        <td>
+          {{ witness.committee }}
+        </td>
+        <td>
+          {{ witness.witness_against_org }}
+        </td>
+        <td>
+          {{ witness.law }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% else %}
+
+  <p class="error">
+    Lawmaker does not exist in the database. Please re-enter your search parameters.
+  </p>
+
+  {% endif %}
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'minutes_search/style.css' %}"/>
+    <link href="https://fonts.googleapis.com/css?family=Domine:400,700|Open+Sans:400,700" rel="stylesheet">
+  </head>
+  <body>
+    <nav id="navigation">
+      <ul>
+        <li><a href="{% url 'minutes_search:guide' %}">How to use this data</a></li>
+        <li><a href="https://www.columbiamissourian.com/news/state_news/">Back to columbiamissourian.com</a></li>
+      </ul>
+    </nav>
+    {% block content %}{% endblock %}
+    <footer>
+      <p>
+        Design and development by Thomas Oide and James Gordon
+      </p>
+      <p>
+        Supervising editors are Sky Chadde and Mark Horvit
+      </p>
+      <p>
+        All rights reserved
+      </p>
+    </footer>
+    {% load static %}
+    <script src="{% static 'minutes_search/script.js' %}"></script>
+    <script>
+    document.getElementById("defaultOpen").click();
+    </script>
+  </body>
+</html>

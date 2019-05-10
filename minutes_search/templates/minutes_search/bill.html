@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search by bill
+{% endblock %}
+
+{% block content %}
+
+  <div class="wrapper">
+
+    <a href="{% url 'minutes_search:index' %}" class="searchLink">Back to search</a>
+
+    <h2 class="title">Results: SB{{ bill_query }}, {{ year_query }}</h2>
+
+    <h2 class="billTitle">{{ bill_data.title }}</h2>
+
+    {% if witness_for_list and witness_against_list %}
+
+    {% with witness_for_list|first as first_witness %}
+    <h3 class="subhead">Became Law? {{ first_witness.law|title }}</h3>
+    {% endwith %}
+
+    {% with witness_for_list|first as first_witness %}
+    <h3 class="subhead">Bill Sponsor: {{ first_witness.bill_sponsor }}</h3>
+    {% endwith %}
+
+    <h3 class="subhead">Witnesses For</h3>
+    <ul>
+      {% for witness in witness_for_list %}
+        {% if witness.witness_for == "none" %}
+        <li>
+          None
+        </li>
+        {% else %}
+        <li>
+          {{ witness.witness_for }}, {{ witness.witness_for_org }}
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <h3 class="subhead">Witnesses Against</h3>
+    <ul>
+      {% for witness in witness_against_list %}
+        {% if witness.witness_for == "none" %}
+        <li>
+          None
+        </li>
+        {% else %}
+        <li>
+          {{ witness.witness_against }}, {{ witness.witness_against_org }}
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <h3 class="subhead">Organizations For</h3>
+    <ul>
+      {% for org in org_for_list %}
+        {% if org.witness_for_org == "none" %}
+        <li>
+          None
+        </li>
+        {% else %}
+        <li>
+          <b>{{ org.witness_for_org }}:</b> {{ org.count }}
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <h3 class="subhead">Organizations Against</h3>
+    <ul>
+      {% for org in org_against_list %}
+        {% if org.witness_against_org == "none" %}
+        <li>
+          None
+        </li>
+        {% else %}
+        <li>
+          <b>{{ org.witness_against_org }}:</b> {{ org.count }}
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    {% else %}
+
+    <p class="error">
+      Bill does not exist in the database. Please re-enter your search parameters.
+    </p>
+
+    {% endif %}
+
+  </div>
+
+{% endblock %}

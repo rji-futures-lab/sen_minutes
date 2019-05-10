@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}
+How to use this data
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+
+  <a href="{% url 'minutes_search:index' %}" class="searchLink">Back to home</a>
+
+  <h1>Missouri Senate Minutes Data Guide</h1>
+
+  <div class="guide">
+    <h2 class="subhead">How to use this data</h2>
+      <p>
+        One way is to focus on a particular bill. Say you're interested in Senate Bill 43 from 2017, which made it harder to sue for discrimination and resulted in St. Louis losing federal funding for low-income housing.
+      </p>
+      <p>
+        Searching our database, you'll find that business groups, including the Missouri Chamber of Commerce and Industry and the Kansas City Chiefs, supported the measure. On the other hand, trial attorneys and the Missouri NAACP opposed it.
+      </p>
+      <p>
+        Another way is to see what bills a particular group supports or opposes. Say you're interested in what Hallmark Cards, based in Kansas City, has been interested in Jefferson City.
+      </p>
+      <p>
+        Searching for the company, you'll find that they supported Senate Bill 746 in 2016, Senate Bill 45 in 2017 and Senate Bills 578 and 1102 in 2018. Using the state's database of bills, you'll find these bills sought to expand the use of arbitration between employers and employees. Arbitration is a way to resolve disputes away from a courtroom (so nothing is made public), <a href="https://www.stltoday.com/news/local/govt-and-politics/arbitrators-in-missouri-could-get-more-power-in-employment-disputes/article_242cacc3-3d0d-5c46-9965-6617b9c39188.html">and studies show resolutions tend to favor employers.</a>
+      </p>
+      <p>
+        With some Googling, you'll find Hallmark has <a href="https://www.stltoday.com/news/local/columns/tony-messenger/messenger-hallmark-hawley-and-the-metoo-movement-forced-arbitration-effort/article_96f72296-608e-5bb0-861a-88a39fe7127e.html">some history with arbitration.</a> It's been sued over trying to make its employees sign contracts in which any dispute had to go through arbitration.
+      </p>
+      <p>
+        Remember, this database does not show all forms of lobbying. Lobbyists are not required to report their interactions with lawmakers, and lawmakers don't have to disclose those interactions either.
+      </p>
+      <p>
+        Lobbyists do have to report how much money they spend on gifts to lawmakers. While the amount of money lobbyists spend on lawmakers has decreased in recent years, <a href="https://www.columbiamissourian.com/news/state_news/decrease-in-lobbyists-gifts-hasn-t-limited-influence-at-the/article_fc7963a8-1f07-11e7-afaf-0f361dcf1ca7.html">gift money is not a good indication of lobbying influence in the state capitol.</a>
+      </p>
+
+    <h2 class="subhead">How we collected the data</h2>
+      <p>
+        Until 2019, the Senate's committee minutes were only available on paper. After each session, Senate staffers hand the minutes over to the Missouri State Archives. Minutes for 2013 through 2018 were accessed at the archives and entered into a the database by hand. The same was true for some of the minutes for 2019, then
+        records were accessed online.
+      </p>
+
+      <p>
+        (The Missouri House of Representatives puts this information online, though in a hard-to-find place. On the House's list of bills online, click on a bill you're interested in. Then, on the right-hand side, there will be links under a "Bill Summary" heading. If the bill has been heard by a committee, there will be a "committee" link. Click on that, and it will list who testified for and against the bill.)
+      </p>
+
+      <p>
+        Summaries for each bill come from the Access Missouri API, a project by KBIA. Learn more about Access Missouri at <a href="https://www.accessmo.org">accessmo.org.</a>
+      </p>
+      <p>
+        You can download the raw data using the links below.
+      </p>
+      <ul>
+        <li>
+          <a href="{% url 'minutes_search:witness_for' %}">Witnesses For</a>
+        </li>
+        <li>
+          <a href="{% url 'minutes_search:witness_against' %}">Witnesses Against </a>
+        </li>
+      </ul>
+  </div>
+</div>
+
+
+{% endblock %}

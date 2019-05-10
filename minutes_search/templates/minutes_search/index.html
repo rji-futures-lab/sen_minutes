@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}
+Missouri Senate Minutes
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+  <h1>The Missouri Senate Minutes Project</h1>
+  <div class="introText">
+    <p>
+      Who supports and who opposes a piece of legislation is an essential part of the democratic process. It can decode what a bill is trying to accomplish and who it might help or hurt. One way of tracking this is who testifies at committee hearings in the state capitol.
+    </p>
+    <p>
+      While most lobbying occurs out of the public's view, a committee hearing is the only time a lobbyist, advocacy group or corporation has to publicly signal its support for a particular bill. This makes it an important window into the state's policy making, even more so for the Senate, which is seen as the state's premier legislative chamber and often the final arbiter of legislation.
+    </p>
+    <p>
+      But, until recently, this information has not been readily accessible to the public. The Senate started putting this information online in 2019, once staffers were informed about this project.
+    </p>
+    <p>
+      But, unlike the state's site, this database is searchable, allowing greater insight into where lobbyists, groups and corporations devote their attention.
+    </p>
+    <p>
+      Here, you can search which organizations and lobbyists have supported and opposed which legislation in the Senate going back to 2013. We hope it sheds some light on state government.
+    </p>
+    <p>
+      Feel free to use our work. Please cite: "data compiled by the Columbia Missourian/Missouri News Network."
+    </p>
+  </div>
+
+  <div class="tab">
+    <button class="tablinks" onclick="openSearch(event, 'bill')" id="defaultOpen">Search by bill</button>
+    <button class="tablinks" onclick="openSearch(event, 'name')">Search by name</button>
+    <button class="tablinks" onclick="openSearch(event, 'org')">Search by organization</button>
+    <button class="tablinks" onclick="openSearch(event, 'lawmaker')">Search by lawmaker</button>
+  </div>
+
+  <div id="bill" class="tabcontent">
+    <h3 class="subhead">Search by bill</h3>
+    <p>
+      Enter in a year and the bill number you're searching for to see who testified for and against the bill. You do not need to add the SB before the bill number.
+    </p>
+    <form action="{% url 'minutes_search:search_by_bill' %}" method="get">
+      <select name="year" required>
+        <option value="" name="default">Select a year</option>
+        {% for witness in witness_list %}
+        <option value="{{ witness.year }}">{{witness.year}}</option>
+        {% endfor %}
+      </select>
+      <input type="text" name="bill_no" placeholder="Bill Number" required />
+      <input type="submit" value="Search"/>
+    </form>
+  </div>
+
+  <div id="name" class="tabcontent">
+    <h3 class="subhead">Search by witness name</h3>
+    <p>
+      Enter a person's first and last name to see what organizations and bills they've testified for and against. Keep in mind that the senate minutes does not distinguish between people with the same name.
+    </p>
+    <p>
+      If, for example, there was a "John Smith" who testified for SB 272 and a different "John Smith" who testified for SB 575, those two people would show up as the same person in this application.
+    </p>
+    <form action="{% url 'minutes_search:search_by_name' %}" method="get">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="submit" value="Search"/>
+    </form>
+  </div>
+
+  <div id="org" class="tabcontent">
+    <h3 class="subhead">Search by organization</h3>
+    <p>
+      Enter an organization's name to see what bills they've testified for and against.
+    </p>
+    <form action="{% url 'minutes_search:search_by_org' %}" method="get">
+      <input type="text" name="org" placeholder="Organization" required />
+      <input type="submit" value="Search"/>
+    </form>
+
+  </div>
+
+  <div id="lawmaker" class="tabcontent">
+    <h3 class="subhead">Search by lawmaker</h3>
+    <p>
+      Enter a year and a senator's name to see what organizations testified for and against the bills they sponsored in a given year.
+    </p>
+    <form action="{% url 'minutes_search:search_by_lawmaker' %}" method="get">
+      <select name="year">
+        <option value="" name="default">Choose a year</option>
+        {% for witness in witness_list %}
+        <option value="{{ witness.year }}">{{witness.year}}</option>
+        {% endfor %}
+      </select>
+      <input type="text" name="lawmaker" placeholder="Lawmaker" required />
+      <input type="submit" value="Search"/>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
