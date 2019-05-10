@@ -4,7 +4,6 @@ from django.core import management
 from django.core.management.base import BaseCommand, CommandError
 from django.db.utils import DataError
 from minutes_search.models import witness_for, witness_against
-from senate_minutes.settings import DATA_DIR
 from django.core.management import call_command
 
 class Command(BaseCommand):
@@ -20,8 +19,12 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS('OK')
         )
-        insert_count = witness_for.objects.from_csv(os.path.join(DATA_DIR, 'witness_for.csv'))
+        insert_count = witness_for.objects.from_csv(os.path.join(
+            settings.DATA_DIR, 'witness_for.csv')
+        )
         print("{} records inserted".format(insert_count))
 
-        insert_count_2 = witness_against.objects.from_csv(os.path.join(DATA_DIR, 'witness_against.csv'))
+        insert_count_2 = witness_against.objects.from_csv(os.path.join(
+            settings.DATA_DIR, 'witness_against.csv')
+        )
         print("{} records inserted".format(insert_count_2))

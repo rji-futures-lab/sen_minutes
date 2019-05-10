@@ -2,7 +2,7 @@
 .env
 zappa_settings.json
 migrations
-static/
+/static/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
