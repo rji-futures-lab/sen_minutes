@@ -45,7 +45,7 @@ LOGGING = {
 STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(APPS_DIR, 'minutes_search', 'static'),
+    os.path.join(ROOT_DIR, 'minutes_search', 'static'),
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
