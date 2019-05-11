@@ -18,17 +18,15 @@ AWS_S3_REGION_NAME = os.getenv('AWS_REGION_NAME')
 AWS_AUTO_CREATE_BUCKET = True
 
 
-AWS_STORAGE_BUCKET_NAME = 'senate_minutes-static'
+AWS_STORAGE_BUCKET_NAME = 'senate-minutes-static'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-# BUCKET_NAME = AWS_STATIC_BUCKET_NAME
-# CUSTOM_DOMAIN = AWS_STATIC_CUSTOM_DOMAIN
-# BUCKET_ACL = 'public-read'
-# DEFAULT_ACL = 'public-read'
-# QUERYSTRING_AUTH = False
-# OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# },
+AWS_BUCKET_ACL = 'public-read'
+AWS_DEFAULT_ACL = 'public-read'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
