@@ -25,8 +25,6 @@ createrds:
 	--region "us-east-2" \
 	--db-instance-identifier "senate-minutes"
 
-	aws --profile rji-futures-lab rds wait db-instance-available --region "us-east-2" --db-instance-identifier "senate-minutes"
-
 	zappa manage dev migrate
 	zappa manage dev loaddata
 
