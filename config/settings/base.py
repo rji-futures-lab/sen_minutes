@@ -2,16 +2,21 @@ import os
 
 DEBUG = False
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-APPS_DIR = os.path.join(BASE_DIR, 'minutes_search')
-DATA_DIR = os.path.join(BASE_DIR, 'data')
+ROOT_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
+    )
+)
+DATA_DIR = os.path.join(ROOT_DIR, 'data')
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rmp',
+        'NAME': 'senate',
         'USER': os.getenv('DB_USER', 'postgres'),
         'PASSWORD': os.getenv('DB_PASSWORD', ''),
         'HOST': os.getenv('DB_HOST', 'localhost'),
@@ -48,7 +53,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'minutes_search', 'templates/minutes_search')
+            os.path.join(
+                ROOT_DIR, 'minutes_search', 'templates/minutes_search'
+            )
         ],
         'APP_DIRS': True,
         'OPTIONS': {
