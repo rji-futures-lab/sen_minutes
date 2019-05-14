@@ -83,7 +83,7 @@ Search by bill
       {% endfor %}
     </ul>
 
-    {% else %}
+    {% elif not witness_for_list and not witness_against_list %}
 
     <p class="error">
       Bill does not exist in the database. Please re-enter your search parameters.

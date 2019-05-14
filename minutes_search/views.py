@@ -48,7 +48,8 @@ def search_by_bill(request):
             witness_against_list = witness_against.objects.filter(bill_no=bill_query).filter(year=year_query).order_by('witness_against')
             org_for_list = witness_for.objects.filter(bill_no=bill_query).filter(year=year_query).values('witness_for_org').annotate(count=Count('witness_for_org')).order_by('count')
             org_against_list = witness_against.objects.filter(bill_no=bill_query).filter(year=year_query).values('witness_against_org').annotate(count=Count('witness_against_org')).order_by('count')
-            context = {
+            if witness_for_list and witness_against_list:
+                context = {
                 'witness_for_list': witness_for_list,
                 'witness_against_list': witness_against_list,
                 'org_for_list': org_for_list,
@@ -56,9 +57,9 @@ def search_by_bill(request):
                 'bill_query': bill_query,
                 'year_query': year_query,
                 'bill_data': get_access_mo_data(bill_query, year_query)
-            }
-            return render(request, 'minutes_search/bill.html', context)
-    return render(request, 'minutes_search/bill.html', {'error': error})
+                }
+                return render(request, 'minutes_search/bill.html', context)
+        return render(request, 'minutes_search/bill.html', {'error': error, 'year_query': year_query, 'bill_query': bill_query})
 
 def bill_detail(request, year, bill_no):
     witness_for_list = witness_for.objects.filter(

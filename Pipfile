@@ -13,6 +13,7 @@ urllib3 = ">=1.24.2"
 django-mathfilters = "*"
 requests = "*"
 django-queryset-csv = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
