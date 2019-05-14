@@ -85,7 +85,7 @@ Missouri Senate Minutes
       Enter a year and a senator's name to see what organizations testified for and against the bills they sponsored in a given year.
     </p>
     <form action="{% url 'minutes_search:search_by_lawmaker' %}" method="get">
-      <select name="year">
+      <select name="year" required>
         <option value="" name="default">Choose a year</option>
         {% for witness in witness_list %}
         <option value="{{ witness.year }}">{{witness.year}}</option>
